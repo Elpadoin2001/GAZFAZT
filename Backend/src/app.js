@@ -1,7 +1,7 @@
 import express from "express";
 import cors from "cors";
 import db from "./models/index.js";
-import userRoutes from "./routes/userRoutes.js";
+import registerRoutes from "./routes/IndexRoutes.js";
 
 const app = express();
 
@@ -23,7 +23,7 @@ app.get("/", (req, res) => {
   res.send("API de Gazfast funcionando");
 });
 
-// API routes
-app.use("/api/users", userRoutes);
+// Registrar todas las rutas de API
+registerRoutes(app);
 
 export default app;
