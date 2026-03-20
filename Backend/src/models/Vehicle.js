@@ -14,6 +14,10 @@ export default (sequelize, DataTypes) => {
       allowNull: false,
       unique: true
     },
+    color: {
+      type: DataTypes.STRING,
+      allowNull: false
+    },
     userId: {
         type: DataTypes.INTEGER,
         allowNull: false

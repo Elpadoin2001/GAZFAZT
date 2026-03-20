@@ -24,6 +24,6 @@ app.get("/", (req, res) => {
 });
 
 // Registrar todas las rutas de API
-registerRoutes(app);
+registerRoutes(app);g
 
 export default app;

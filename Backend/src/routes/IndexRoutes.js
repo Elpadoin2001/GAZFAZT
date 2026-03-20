@@ -1,5 +1,7 @@
 import authRoutes from './authRoutes.js';
 import userRoutes from './userRoutes.js';
+import rechargeGasRoutes from './rechargeGasRoutes.js';
+import transactionHistoryRoutes from './transactionHistoryRoutes.js';
 
 /**
  * Centraliza todas las rutas de la aplicación
@@ -8,6 +10,8 @@ import userRoutes from './userRoutes.js';
 export const registerRoutes = (app) => {
   app.use('/api/auth', authRoutes);
   app.use('/api/users', userRoutes);
+  app.use('/api/recharge-gas', rechargeGasRoutes);
+  app.use('/api/transactions', transactionHistoryRoutes);
   
   // Puedes agregar más rutas aquí conforme crezca tu app
   // Ejemplo:
