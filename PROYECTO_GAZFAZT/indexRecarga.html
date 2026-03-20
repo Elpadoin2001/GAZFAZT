@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="/PROYECTO_GAZFAZT/assets/dist/css/bootstrap.min.css">
+</head>
+
+<body class="bg-light">
+
+    <div class="container d-flex justify-content-center mt-5">
+
+        <div class="card p-4 shadow" style="max-width:500px; width:100%;">
+
+            <div class="text-center mb-4">
+                <h3>Recargar saldo</h3>
+            </div>
+
+            <form>
+
+                <div class="mb-3">
+                    <label class="form-label">Informacion de la cuenta</label><br>
+                    <label class="form-label">Nombre: Juan Pérez</label><br>
+                    <label class="form-label">Número de identificación: 123456789</label><br>
+                    <label class="form-label">Correo electrónico: juan.perez@example.com</label>
+                </div>
+
+                <!-- RECARGA RAPIDA -->
+
+                <div class="mb-3">
+                    <label class="form-label">Selecciona un valor</label>
+
+                    <div class="d-flex flex-wrap gap-2 mb-2">
+
+                        <button type="button" class="btn btn-outline-primary btn-recarga"
+                            onclick="seleccionarValor(10000,this)">10.000</button>
+
+                        <button type="button" class="btn btn-outline-primary btn-recarga"
+                            onclick="seleccionarValor(20000,this)">20.000</button>
+
+                        <button type="button" class="btn btn-outline-primary btn-recarga"
+                            onclick="seleccionarValor(50000,this)">50.000</button>
+
+                        <button type="button" class="btn btn-outline-primary btn-recarga"
+                            onclick="seleccionarValor(100000,this)">100.000</button>
+
+                        <button type="button" class="btn btn-outline-secondary " onclick="habilitarOtro()">Otro
+                            valor</button>
+
+                    </div>
+
+                    <input id="monto" type="number" class="form-control" min="5000" step="1000" required>
+
+                </div>
+
+                <!-- BANCOS -->
+
+                <div class="mb-3">
+                    <label class="form-label">Banco</label>
+                    <select id="banco" class="form-select" required>
+                        <option value="">Seleccione un banco</option>
+                    </select>
+                </div>
+
+                <div class="alert alert-success mt-4">
+                    <input type="checkbox" id="terminos" class="form-check-input" required>
+                    <label for="terminos" class="form-check-label">Acepto los términos y condiciones</label>
+                </div>
+
+                <div class="text-center">
+                    <button type="submit" class="btn btn-primary w-100">
+                        Recargar
+                    </button>
+                </div>
+
+            </form>
+
+        </div>
+    </div>
+
+    <!-- LLAMAMOS EL JS EXTERNO -->
+    <script src="/PROYECTO_GAZFAZT/assets/js/recarga.js"></script>
+
+</body>
+
+</html>

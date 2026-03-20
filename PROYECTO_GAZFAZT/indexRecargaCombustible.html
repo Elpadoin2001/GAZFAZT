@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="/PROYECTO_GAZFAZT/assets/dist/css/bootstrap.min.css">
+</head>
+
+
+<body>
+
+    <div class="container d-flex justify-content-center mt-5">
+
+        <div class="card p-4 shadow" style="max-width:500px; width:100%;">
+
+            <div class="text-center mb-4">
+                <h3>Recargar combustible</h3>
+            </div>
+
+            <form>
+
+                <div class="mb-3">
+                    <label class="form-label">Informacion de la cuenta</label><br>
+                    <label class="form-label">Nombre: Juan Pérez</label><br>
+                    <label class="form-label">Número de identificación: 123456789</label><br>
+                    <label class="form-label">Correo electrónico: juan.perez@example.com</label>
+                </div>
+
+                <!-- RECARGA RAPIDA -->
+
+                <div class="mb-3">
+                    <label class="form-label">Recarga de combustible</label>
+
+                    <div class="d-grid gap-2 mb-3" style="grid-template-columns: repeat(3, 1fr);">
+
+                        <button type="button" class="btn btn-outline-primary" onclick="sumar(1000)">1.000</button>
+
+                        <button type="button" class="btn btn-outline-primary" onclick="sumar(2000)">2.000</button>
+
+                        <button type="button" class="btn btn-outline-primary" onclick="sumar(5000)">5.000</button>
+
+                        <button type="button" class="btn btn-outline-primary" onclick="sumar(10000)">10.000</button>
+
+                        <button type="button" class="btn btn-outline-primary" onclick="sumar(50000)">50.000</button>
+
+                        <button type="button" class="btn btn-outline-primary" onclick="sumar(100000)">100.000</button>
+
+                        <button type="button" class="btn btn-success w-100" onclick="llenar()" style="grid-column: 2;">Llenar</button>
+
+                    </div>
+
+                    <input id="monto" type="text" class="form-control" required>
+
+                </div>
+
+
+                <div class="text-center">
+                    <button type="submit" class="btn btn-primary w-100">
+                        Recargar
+                    </button>
+                </div>
+
+            </form>
+
+        </div>
+    </div>
+    <script src="/PROYECTO_GAZFAZT/assets/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="/PROYECTO_GAZFAZT/assets/js/combustible.js"></script>
+</body>
+
+</html>
