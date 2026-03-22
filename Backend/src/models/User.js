@@ -21,7 +21,11 @@ export default (sequelize, DataTypes) => {
     rolId: {
       type: DataTypes.INTEGER,
       allowNull: true
-    }
+    },
+    telefono: {
+      type: DataTypes.STRING,
+      allowNull: true
+    }   
   }, {
     tableName: 'users',
     timestamps: true
@@ -29,7 +33,8 @@ export default (sequelize, DataTypes) => {
 
   User.associate = (models) => {
     User.belongsTo(models.Role, { foreignKey: 'rolId', as: 'role' });
-    
+    User.hasMany(models.Vehicle, { foreignKey: 'userId', as: 'vehicles' });
+    User.hasOne(models.Account, { foreignKey: 'userId', as: 'account' });
   };
 
   return User;  
