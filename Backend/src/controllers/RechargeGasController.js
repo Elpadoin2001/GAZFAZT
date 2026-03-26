@@ -94,7 +94,7 @@ export const registerGasRecharge = async (req, res) => {
       type: "Recarga de Gasolina",
       userId,
       vehicleId,
-      ProductId: productId,
+      productId: productId,
       comision: parseFloat(comision) || 0,
       stateId: state.id
     });

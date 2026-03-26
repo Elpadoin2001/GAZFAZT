@@ -15,5 +15,9 @@ export default (sequelize, DataTypes) => {
     timestamps: false
   });
 
+  VehicleType.associate = (models) => {
+    VehicleType.hasMany(models.Vehicle, { foreignKey: 'vehicleTypeId', as: 'vehicles' });
+  };
+
   return VehicleType;
 };

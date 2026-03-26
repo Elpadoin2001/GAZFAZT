@@ -26,9 +26,5 @@ export default (sequelize, DataTypes) => {
     timestamps: true
   });
 
-  GasStation.associate = (models) => {
-    GasStation.hasMany(models.Transaction, { foreignKey: 'gasStationId', as: 'transactions' });
-  };
-
   return GasStation;
 };

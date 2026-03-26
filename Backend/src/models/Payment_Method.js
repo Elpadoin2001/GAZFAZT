@@ -7,7 +7,8 @@ export default (sequelize, DataTypes) => {
     },
     tipo: {
       type: DataTypes.STRING,
-      allowNull: false
+      allowNull: false,
+      unique: true
     },
     descripcion: {
       type: DataTypes.STRING,
