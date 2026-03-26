@@ -16,7 +16,13 @@ export default (sequelize, DataTypes) => {
     description: {
         type: DataTypes.TEXT, 
         allowNull: true
-    }    
+    } ,
+    cantidad: {
+        type: DataTypes.INTEGER, 
+        allowNull: false    
+    }   
+
+
   }, {
     tableName: 'products',
     timestamps: false
@@ -26,3 +32,8 @@ export default (sequelize, DataTypes) => {
   };
   return Product;
 }
+
+// gasolina
+// diesel u -> gasolinera flypass 
+
+// gas

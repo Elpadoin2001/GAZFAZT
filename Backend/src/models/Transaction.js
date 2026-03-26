@@ -9,10 +9,6 @@ export default (sequelize, DataTypes) => {
       type: DataTypes.DECIMAL(10, 2),
       allowNull: false
     },
-    type: {
-      type: DataTypes.STRING,
-      allowNull: false
-    },
     userId: {
       type: DataTypes.INTEGER,
       allowNull: false
@@ -28,6 +24,10 @@ export default (sequelize, DataTypes) => {
     comision: {
       type: DataTypes.DECIMAL(10, 2),
       allowNull: false
+    },
+    stateId: {
+      type: DataTypes.INTEGER,
+      allowNull: false
     }
   }, {
     tableName: 'transactions',
@@ -38,6 +38,7 @@ export default (sequelize, DataTypes) => {
     Transaction.belongsTo(models.User, { foreignKey: 'userId', as: 'user' });
     Transaction.belongsTo(models.Vehicle, { foreignKey: 'vehicleId', as: 'vehicle' });
     Transaction.belongsTo(models.Product, { foreignKey: 'ProductId', as: 'product' });
+    Transaction.belongsTo(models.State, { foreignKey: 'stateId', as: 'state' });
   };
 
   return Transaction;
