@@ -14,6 +14,7 @@ import TransactionModel from "./Transaction.js";
 import GasStationModel from "./Gas_station.js";
 import PaymentMethodModel from "./Payment_Method.js";
 import RechargeModel from "./Recharge.js";
+import StateModel from "./State.js";
 
 const models = {
   User: UserModel(sequelize, Sequelize.DataTypes),
@@ -29,6 +30,7 @@ const models = {
   GasStation: GasStationModel(sequelize, Sequelize.DataTypes),
   PaymentMethod: PaymentMethodModel(sequelize, Sequelize.DataTypes),
   Recharge: RechargeModel(sequelize, Sequelize.DataTypes),
+  State: StateModel(sequelize, Sequelize.DataTypes),
 };
 
 Object.values(models).forEach((model) => {
