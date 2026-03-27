@@ -70,8 +70,39 @@ let nuevoSaldo = saldoActual - monto;
 
 localStorage.setItem("saldo", nuevoSaldo);
 
-/* REDIRIGIR */
+/* GENERAR QR */
 
-window.location.href = "indexUsuario.html";
+generarQR(monto);
 
 });
+
+function generarQR(monto) {
+
+    let usuario = "Juan Pérez";
+    let id = Math.floor(Math.random() * 100000);
+    let fecha = new Date().toISOString().slice(0,16);
+
+    let datosQR = `GZF|u=JP|id=${id}|m=${monto}|f=${fecha}|e=P`;
+
+    // limpiar QR anterior
+    document.getElementById("qr").innerHTML = "";
+
+    new QRCode(document.getElementById("qr"), {
+        text: datosQR,
+        width: 200,
+        height: 200
+    });
+
+    document.getElementById("mensaje").innerHTML =
+        `<div class="alert alert-success">
+            QR generado ✅<br>
+            Muéstralo en la estación de servicio
+        </div>`;
+
+    console.log(datosQR);
+}
+/*VOLVER AL MENÚ USUARIO */
+
+function volver() {
+    window.location.href = "indexUsuario.html";
+}

@@ -39,6 +39,46 @@
     font-weight: 600;
 }
 
+/* AJUSTE DE TAMAÑO LOGO GAZFAZT */
+.logo-custom {
+    height: 70px;
+    width: auto;
+    max-width: 220px;
+    object-fit: contain;
+    padding: 5px 0;
+}
+
+.navbar {
+    min-height: 80px;
+}
+
+.seccion-fondo {
+    position: relative;
+    background-image: url('/PROYECTO_GAZFAZT/resources/images/Gemini_Generated_Image_f7rkt9f7rkt9f7rk.png'); /* tu imagen */
+    background-size: cover;
+    background-position: center 30%;
+    padding: 80px 0;
+}
+
+/* capa oscura encima de la imagen */
+.seccion-fondo::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+
+    background: rgba(0, 0, 0, 0.5); /* opacidad */
+    z-index: 1;
+}
+
+/* contenido encima de la capa */
+.seccion-fondo .container {
+    position: relative;
+    z-index: 2;
+}
+
 /*COLO DE ENCABEZADO*/
 .navbar {
     background-color: #4A4696;
@@ -155,4 +195,57 @@ iframe {
     .bd-placeholder-img-lg {
         font-size: 3.5rem;
     }
+}
+
+.card-opcion {
+    border-radius: 25px;      /* Bordes más redondeados y modernos */
+    padding: 60px 40px;      /* Duplicamos el aire interno */
+    background: white;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3); /* Sombra más profunda */
+    transition: all 0.3s ease;
+    min-height: 450px;       /* Forzamos una altura grande y uniforme */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Iconos Gigantes */
+.card-opcion i {
+    font-size: 90px !important; 
+    margin-bottom: 25px;
+}
+
+/* Textos de la Card */
+.card-opcion h4 {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #333;
+}
+
+#saldoUsuario {
+    font-size: 3.5rem !important; /* El $0 se verá enorme */
+    font-weight: 900;
+    margin: 20px 0;
+}
+
+.card-opcion .btn-gazfazt {
+    padding: 15px 40px;
+    font-size: 1.3rem;
+    font-weight: 600;
+    border-radius: 12px;
+    width: 90%; /* Que ocupe casi todo el ancho interno */
+}
+
+.btn-login {
+    background-color: #79B0E0;
+    color: #fff;
+    border: none;
+}
+
+.btn-login:hover {
+    background-color: #5a96c9;
+}
+a{
+    text-decoration: none;
 }
