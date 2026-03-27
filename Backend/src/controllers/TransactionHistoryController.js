@@ -1,7 +1,7 @@
 import db from "../models/index.js";
 import { Op } from "sequelize";
 
-const { Transaction, User, Vehicle, Product } = db;
+const { Transaction, User, Vehicle, Product, State } = db;
 
 // Obtener todas las transacciones con paginación
 export const getAllTransactions = async (req, res) => {
@@ -25,6 +25,11 @@ export const getAllTransactions = async (req, res) => {
           model: Product,
           as: 'product',
           attributes: ['id', 'name', 'price', 'description']
+        },
+        {
+          model: State,
+          as: 'state',
+          attributes: ['id', 'nombre']
         }
       ],
       order: [[sortBy, order]],
@@ -42,55 +47,6 @@ export const getAllTransactions = async (req, res) => {
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: "Error al obtener transacciones" });
-  }
-};
-
-// Obtener transacciones por tipo (ingresos o pagos)
-export const getTransactionsByType = async (req, res) => {
-  try {
-    const { type, page = 1, limit = 10 } = req.query;
-
-    if (!type) {
-      return res.status(400).json({ message: "El parámetro 'type' es requerido" });
-    }
-
-    const offset = (page - 1) * limit;
-
-    const { count, rows } = await Transaction.findAndCountAll({
-      where: { type },
-      include: [
-        {
-          model: User,
-          as: 'user',
-          attributes: ['id', 'nombre', 'correo', 'telefono']
-        },
-        {
-          model: Vehicle,
-          as: 'vehicle',
-          attributes: ['id', 'marca', 'placa', 'color']
-        },
-        {
-          model: Product,
-          as: 'product',
-          attributes: ['id', 'name', 'price', 'description']
-        }
-      ],
-      order: [['createdAt', 'DESC']],
-      limit: parseInt(limit),
-      offset: parseInt(offset)
-    });
-
-    res.json({
-      total: count,
-      pages: Math.ceil(count / limit),
-      currentPage: parseInt(page),
-      perPage: parseInt(limit),
-      type,
-      transactions: rows
-    });
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ message: "Error al obtener transacciones por tipo" });
   }
 };
 
@@ -129,6 +85,11 @@ export const getTransactionsByUser = async (req, res) => {
           model: Product,
           as: 'product',
           attributes: ['id', 'name', 'price', 'description']
+        },
+        {
+          model: State,
+          as: 'state',
+          attributes: ['id', 'nombre']
         }
       ],
       order: [['createdAt', 'DESC']],
@@ -187,6 +148,11 @@ export const getTransactionsByDateRange = async (req, res) => {
           model: Product,
           as: 'product',
           attributes: ['id', 'name', 'price', 'description']
+        },
+        {
+          model: State,
+          as: 'state',
+          attributes: ['id', 'nombre']
         }
       ],
       order: [['createdAt', 'DESC']],
@@ -232,29 +198,16 @@ export const getTransactionSummary = async (req, res) => {
       raw: true
     });
 
-    // Calcular totales por tipo
+    // Calcular totales
     const summary = {
       totalTransactions: transactions.length,
       totalAmount: 0,
-      totalComision: 0,
-      byType: {}
+      totalComision: 0
     };
 
     transactions.forEach(transaction => {
       summary.totalAmount += parseFloat(transaction.amount);
       summary.totalComision += parseFloat(transaction.comision);
-
-      if (!summary.byType[transaction.type]) {
-        summary.byType[transaction.type] = {
-          count: 0,
-          totalAmount: 0,
-          totalComision: 0
-        };
-      }
-
-      summary.byType[transaction.type].count += 1;
-      summary.byType[transaction.type].totalAmount += parseFloat(transaction.amount);
-      summary.byType[transaction.type].totalComision += parseFloat(transaction.comision);
     });
 
     res.json(summary);
@@ -285,6 +238,11 @@ export const getRecentTransactions = async (req, res) => {
           model: Product,
           as: 'product',
           attributes: ['id', 'name', 'price', 'description']
+        },
+        {
+          model: State,
+          as: 'state',
+          attributes: ['id', 'nombre']
         }
       ],
       order: [['createdAt', 'DESC']],
@@ -336,6 +294,11 @@ export const getTransactionsByAmountRange = async (req, res) => {
           model: Product,
           as: 'product',
           attributes: ['id', 'name', 'price', 'description']
+        },
+        {
+          model: State,
+          as: 'state',
+          attributes: ['id', 'nombre']
         }
       ],
       order: [['createdAt', 'DESC']],
@@ -378,6 +341,11 @@ export const getTransactionDetail = async (req, res) => {
           model: Product,
           as: 'product',
           attributes: ['id', 'name', 'price', 'description']
+        },
+        {
+          model: State,
+          as: 'state',
+          attributes: ['id', 'nombre']
         }
       ]
     });
@@ -394,26 +362,4 @@ export const getTransactionDetail = async (req, res) => {
 };
 
 // Obtener conteo de transacciones por tipo
-export const getTransactionCountByType = async (req, res) => {
-  try {
-    const distinctTypes = await Transaction.findAll({
-      attributes: [[db.sequelize.fn('DISTINCT', db.sequelize.col('type')), 'type']],
-      raw: true
-    });
 
-    const counts = {};
-    for (const typeObj of distinctTypes) {
-      if (typeObj.type) {
-        const count = await Transaction.count({
-          where: { type: typeObj.type }
-        });
-        counts[typeObj.type] = count;
-      }
-    }
-
-    res.json(counts);
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ message: "Error al obtener conteo de transacciones" });
-  }
-};

@@ -1,6 +1,6 @@
 import db from "../models/index.js";
 
-const { Vehicle, Transaction, Product, User } = db;
+const { Vehicle, Transaction, Product, User, State } = db;
 
 // Buscar vehículo por placa y color
 export const getVehicleByPlacaAndColor = async (req, res) => {
@@ -78,14 +78,25 @@ export const registerGasRecharge = async (req, res) => {
       return res.status(404).json({ message: "Usuario no encontrado" });
     }
 
+    // Obtener el estado por defecto (completado)
+    let state = await State.findOne({ where: { nombre: 'completada' } });
+    if (!state) {
+      state = await State.findOne({ where: { nombre: 'completed' } });
+    }
+    if (!state) {
+      // Si no existe, crear un estado por defecto
+      state = await State.create({ nombre: 'completada' });
+    }
+
     // Crear la transacción
     const transaction = await Transaction.create({
       amount: parseFloat(amount),
       type: "Recarga de Gasolina",
       userId,
       vehicleId,
-      ProductId: productId,
-      comision: parseFloat(comision) || 0
+      productId: productId,
+      comision: parseFloat(comision) || 0,
+      stateId: state.id
     });
 
     // Obtener la transacción con todas sus relaciones
@@ -105,6 +116,11 @@ export const registerGasRecharge = async (req, res) => {
           model: Product,
           as: 'product',
           attributes: ['id', 'name', 'price', 'description']
+        },
+        {
+          model: State,
+          as: 'state',
+          attributes: ['id', 'nombre']
         }
       ]
     });
@@ -139,6 +155,11 @@ export const getAllRechargeTransactions = async (req, res) => {
           model: Product,
           as: 'product',
           attributes: ['id', 'name', 'price', 'description']
+        },
+        {
+          model: State,
+          as: 'state',
+          attributes: ['id', 'nombre']
         }
       ],
       order: [['createdAt', 'DESC']]
@@ -176,6 +197,11 @@ export const getRechargeTransactionsByVehicle = async (req, res) => {
           model: Product,
           as: 'product',
           attributes: ['id', 'name', 'price', 'description']
+        },
+        {
+          model: State,
+          as: 'state',
+          attributes: ['id', 'nombre']
         }
       ],
       order: [['createdAt', 'DESC']]
@@ -209,6 +235,11 @@ export const getTransactionDetail = async (req, res) => {
           model: Product,
           as: 'product',
           attributes: ['id', 'name', 'price', 'description']
+        },
+        {
+          model: State,
+          as: 'state',
+          attributes: ['id', 'nombre']
         }
       ]
     });

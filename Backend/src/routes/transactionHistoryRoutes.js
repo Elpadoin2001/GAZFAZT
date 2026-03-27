@@ -1,23 +1,18 @@
 import express from 'express';
 import {
   getAllTransactions,
-  getTransactionsByType,
   getTransactionsByUser,
   getTransactionsByDateRange,
   getTransactionSummary,
   getRecentTransactions,
   getTransactionsByAmountRange,
-  getTransactionDetail,
-  getTransactionCountByType
+  getTransactionDetail
 } from '../controllers/TransactionHistoryController.js';
 
 const router = express.Router();
 
 // Obtener todas las transacciones con paginación
 router.get('/all', getAllTransactions);
-
-// Obtener transacciones por tipo (ingresos/pagos) con paginación
-router.get('/by-type', getTransactionsByType);
 
 // Obtener transacciones de un usuario específico
 router.get('/user/:userId', getTransactionsByUser);
@@ -33,9 +28,6 @@ router.get('/recent', getRecentTransactions);
 
 // Obtener transacciones por rango de monto
 router.get('/amount-range', getTransactionsByAmountRange);
-
-// Obtener conteo de transacciones por tipo
-router.get('/count/by-type', getTransactionCountByType);
 
 // Obtener detalle de una transacción específica (debe ir al final)
 router.get('/:transactionId', getTransactionDetail);
